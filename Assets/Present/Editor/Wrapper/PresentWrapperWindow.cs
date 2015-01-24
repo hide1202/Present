@@ -20,7 +20,7 @@ public class PresentWrapperWindow : EditorWindow
         {
             string assetFullPath = Path.Combine(Util.ProjectFullPath, AssetDatabase.GUIDToAssetPath(guid));
             var assetInfo = new AssetInfo(guid, assetFullPath);
-            if (assetInfo.IsDirectory)
+            if (assetInfo.IsDirectory())
             {
                 var allFiles = Util.GetAllFiles(assetInfo.FullPath);
                 foreach (var fullPath in allFiles)
@@ -36,6 +36,7 @@ public class PresentWrapperWindow : EditorWindow
                 AddAsset(guid, assetInfo);
             }
         }
+                
         // Log for debug.
         foreach (var asset in _assetList)
             Debug.Log(asset.ToString());
@@ -71,11 +72,12 @@ public class PresentWrapperWindow : EditorWindow
         }
         if (GUILayout.Button("Clear cache"))
         {
+            _assetList.Clear();
         }
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Compress"))
+        if (GUILayout.Button("Export"))
         {
             string savePath = EditorUtility.SaveFilePanel("Save present", "", "", Util.PresentExtension);
 
@@ -89,12 +91,6 @@ public class PresentWrapperWindow : EditorWindow
             else
                 EditorUtility.DisplayDialog("Error", "Nothing to select files", "OK");
         }
-        if (GUILayout.Button("Decompress"))
-        {
-            string openPath = EditorUtility.OpenFilePanel("Open present", "", Util.PresentExtension);
-            PresentCompression.Decompress(openPath);
-            AssetDatabase.Refresh();
-        }
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.HelpBox(PresentString.String["exportInfo"], MessageType.Info);
@@ -102,7 +98,7 @@ public class PresentWrapperWindow : EditorWindow
         EditorGUILayout.HelpBox("Selected files", MessageType.None);
         foreach (var asset in _assetList)
         {
-            if (!asset.IsDirectory)
+            if (!asset.IsDirectory())
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField(asset.FileName);

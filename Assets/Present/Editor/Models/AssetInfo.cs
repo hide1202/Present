@@ -8,12 +8,13 @@ public class AssetInfo
     public string FullPath { get; private set; }
     public string RelativePath { get { return FullPath.Substring(FullPath.IndexOf("Assets/")); } }
     public string FileName { get { return Path.GetFileName(FullPath); } }
-    public string FolderPath { get { if (IsDirectory)return FullPath; return Path.GetDirectoryName(FullPath); } }
-    public FileAttributes FileAttribute { get { return File.GetAttributes(FullPath); } }
+    public string FolderPath { get { if (IsDirectory())return FullPath; return Path.GetDirectoryName(FullPath); } }
+    private FileAttributes FileAttribute { get { return File.GetAttributes(FullPath); } }
 
     public string Version { get; set; }
+    public AssetInfoState State { get; set; }
 
-    public bool IsDirectory { get { return (FileAttribute & FileAttributes.Directory) == FileAttributes.Directory; } }
+    public bool IsDirectory() { return (FileAttribute & FileAttributes.Directory) == FileAttributes.Directory; }
 
     public override string ToString()
     {

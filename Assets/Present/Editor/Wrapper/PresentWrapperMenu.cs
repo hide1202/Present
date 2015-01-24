@@ -11,15 +11,11 @@ public class PresentWrapperMenu
         window.Show();
     }
 
-    [MenuItem("Present/Compress files")]
-    public static void CompressTest()
+    [MenuItem("Assets/Present/Import Package")]
+    public static void ImportPresentPackage()
     {
-        PresentCompression.Compress( "D:\\Result.7z", "D:\\TestFile.txt", "D:\\TestFile2.txt");
-    }
-
-    [MenuItem("Present/Decompress files")]
-    public static void DecompressTest()
-    {
-        PresentCompression.Decompress("D:\\Result.7z");
+        string openPath = EditorUtility.OpenFilePanel("Open present", "", Present.Util.PresentExtension);
+        PresentCompression.Decompress(openPath);
+        AssetDatabase.Refresh();
     }
 }

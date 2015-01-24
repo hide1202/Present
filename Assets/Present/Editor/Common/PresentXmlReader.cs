@@ -23,8 +23,7 @@ public abstract class PresentXmlReader : IEnumerable<XmlNode>
 
     protected PresentXmlReader(params string[] xPaths) : this()
     {
-        foreach(var xPath in xPaths)
-            LoadPath(xPath);
+        System.Array.ForEach<string>(xPaths, xPath => LoadPath(xPath));
     }
 
     protected void LoadPath(string xPath)
@@ -38,8 +37,9 @@ public abstract class PresentXmlReader : IEnumerable<XmlNode>
     {
         foreach (var dataList in _loadedDataDic.Values)
             for (int i = 0; i < dataList.Count; i++)
-                if (dataList[i].Attributes[key].Value == value)
-                    return dataList[i];
+                if (dataList != null && dataList[i] != null)
+                    if (dataList[i].Attributes[key].Value == value)
+                        return dataList[i];
         return null;
     }
 
@@ -53,8 +53,8 @@ public abstract class PresentXmlReader : IEnumerable<XmlNode>
 
     public IEnumerator<XmlNode> GetEnumerator()
     {
-        foreach(var nodeList in _loadedDataDic.Values)
-            for(int i = 0; i < nodeList.Count; i++)
+        foreach (var nodeList in _loadedDataDic.Values)
+            for (int i = 0; i < nodeList.Count; i++)
                 yield return nodeList[i];
     }
 
