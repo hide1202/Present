@@ -1,10 +1,10 @@
 # Present
-유니티 패키지의 버전관리를 위한 도구.
+- `Present` is the package manager for Unity3D.
 
-###1. 패키징
-- LZMA 알고리즘을 이용한 압축 및 해제 (LZMA SDK : http://www.7-zip.org/sdk.html)
+### 1. Packaging
+- Compress and decompress using LZMA algorithm (LZMA SDK : http://www.7-zip.org/sdk.html)
 
-###2. 메타데이터(Letter)
-- 패키징 및 언패키징에 필요한 에셋의 정보들을 XML 형태로 저장.
-- 메타데이터는 패키징, 언패키징시 프로젝트 폴더 아래 Present 폴더에 저장.
-- 버전 관리 시스템(svn, git, etc.)을 사용할 경우, 프로젝트 폴더의 Present 폴더까지 함께 업로드해야 패키징에 대한 버전관리를 받을 수 있음.
+### 2. Metadata (Letter)
+- Save asset information serialized XML.
+- Save a Letter in Present directory under project directory.
+- Upload Present directory for managing packages when you use version-control system.
